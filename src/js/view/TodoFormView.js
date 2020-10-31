@@ -1,5 +1,5 @@
-class TodoFormView {
-    constructor() {
-        console.log('TodoFormView created')
-    }
+class TodoFormView{
+  constructor(){
+      console.log('TodoFormView created')
+  }
 }
