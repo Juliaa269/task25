@@ -1,6 +1,6 @@
 class TodoCollection{
   constructor(){
-      console.log('collection created');
+      console.log('TodoCollection created');
 
       this.list = [];
   }
@@ -32,12 +32,12 @@ class TodoCollection{
       });
   }
 
-  add(newTask) {
-    newTask.isDone = false;
+  add(todoItem) {
+    todoItem.isDone = false;
 
     return fetch(`${TODOS_URL}`, {
       method: 'POST',
-      body: JSON.stringify(newTask),
+      body: JSON.stringify(todoItem),
       headers: {
           'Content-Type' : 'application/json'
       }

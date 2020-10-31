@@ -3,7 +3,7 @@ class TodoListView{
         console.log('TodoListView created');
 
         this.config = config;
-        this.$el = this.initView()
+        this.$el = this.initView();
     }
 
     initView(){
