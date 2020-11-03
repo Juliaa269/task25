@@ -1,18 +1,21 @@
 const { dest, src, parallel, watch, series } = require('gulp');
 const concat = require('gulp-concat');
 // const uglify = require('gulp-uglify');
+const uglify = require('gulp-uglify-es').default;
 // const babel = require('gulp-babel');
 const browsersync = require('browser-sync').create();
 
 function copyHtml() {
-    return src('./src/index.html').pipe(dest('./dist/'));
+    return src('./src/index.html')
+        // .pipe(concat('index.html'))
+        .pipe(dest('./dist/'));
 }
 
 function copyJs() {
     return src('./src/**/*.js')
         .pipe(concat('app.js'))
         // .pipe(babel())
-        // .pipe(uglify())
+        .pipe(uglify())
         .pipe(dest('./dist/'));
 }
 
@@ -62,12 +65,14 @@ function reloadBrowser(cb) {
     cb();
 }
 
-module.exports.build = parallel(copyHtml, 
+module.exports.build = parallel(
+    copyHtml, 
     copyCss, 
     copyVendorsJs,
     copyJs);
 
-module.exports.serve = series(copyHtml, 
+module.exports.serve = series(
+    copyHtml, 
     copyCss, 
     copyVendorsJs, 
     copyJs, server);
