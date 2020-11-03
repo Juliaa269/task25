@@ -1,16 +1,20 @@
 class TodoController {
   constructor() {
     this.$container = $('.container');
+
     this.listview = new TodoListView({
       onToggle: (id) => this.onToggle(id),
       onDelete: (id) => this.onDelete(id),
     });
-    this.$container.append(this.listview.$el);
+
     this.formView = new TodoFormView({
-      onAddTask: () => this.onAddTask(),
+      onAddTask: (task) => this.onAddTask(task),
     });
 
     this.collection = new TodoCollection();
+
+    this.$container.append(this.listview.$el);
+    this.$container.append(this.formView.$el);
 
     this.collection.getList().then(() => {
       this.listview.render(this.collection.list);
@@ -27,20 +31,11 @@ class TodoController {
     this.collection.delete(id);
     this.listview.render(this.collection.list);
   }
-  onAddTask() {
-    const todoItem = {
-      title: this.formView.$todoInput.val(),
-      isDone: false,
-    };
+  onAddTask(task) {
+    console.log('task', task);
 
-    this.formView.$todoInput.val('');
-    this.collection
-      .add(todoItem)
-      .then(() => {
-        this.collection.getList();
-      })
-      .then(() => {
-        this.listview.render(this.collection.list);
-      });
+    this.collection.add(task).then(() => {
+          this.listview.render(this.collection.list);
+        });
   }
 }

@@ -3,18 +3,34 @@ class TodoFormView {
     console.log('TodoFormView created');
 
     this.config = config;
-    //   console.log(this.config);
-
-    this.$addTaskBtn = $("#addTask");
-    this.$todoInput = $("#input-task");
-    this.initForm();
+      // console.log(this.config);
+    this.$el = this.initView();
+    this.$taskInput = this.$el.find('#input-task');
   }
 
-  initForm() {
-    this.$addTaskBtn.on("click", () => this.onAddTodoClick());
+  initView() {
+    return $(
+      `<form>
+        <input
+          placeholder="Введите текст."
+          type="text"
+          name="todo"
+          id="input-task"
+        />
+        <button class="addTask" type="submit" id="addTask">Добавить</button>
+      </form>`).on('submit', (e) => this.onFormSubmit(e))
+  
   }
 
-  onAddTodoClick() {
-    this.config.onAddTask();
+  
+  onFormSubmit(e) {
+    e.preventDefault();
+
+    const task = {
+      title: this.$taskInput.val()
+    }
+
+    this.config.onAddTask(task);
+    this.$taskInput.val('');
   }
 }

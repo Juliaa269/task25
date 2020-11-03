@@ -32,16 +32,16 @@ class TodoCollection{
       });
   }
 
-  add(todoItem) {
-    todoItem.isDone = false;
+  add(newTask) {
+    newTask.isDone = false;
 
     return fetch(`${TODOS_URL}`, {
-      method: 'POST',
-      body: JSON.stringify(todoItem),
-      headers: {
-          'Content-Type' : 'application/json'
-      }
-  }).then(resp => resp.json())
-    .then(task => this.list.push(task));
-  }
+        method: 'POST',
+        body: JSON.stringify(newTask),
+        headers: {
+            'Content-Type' : 'application/json'
+        }
+    }).then(resp => resp.json())
+        .then(task => this.list.push(task));
+    }
 }
